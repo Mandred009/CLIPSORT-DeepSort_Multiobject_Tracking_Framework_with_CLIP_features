@@ -6,7 +6,7 @@ class KalmanFilter:
         self.state = initial_state
 
         # State covariance matrix
-        self.P = np.diag([0.5, 0.5, 0.5, 0.5, 10000.0, 10000.0, 10000.0, 10000.0])
+        self.P = np.diag([1.0, 1.0, 1.0, 1.0, 10000.0, 10000.0, 10000.0, 10000.0])
 
         # State transition matrix
         self.F = np.eye(8)
@@ -23,7 +23,7 @@ class KalmanFilter:
         self.H[3, 3] = 1.0
 
         # Measurement noise covariance
-        self.R = np.eye(4) * 0.01
+        self.R = np.eye(4) * 1.0
 
         # Process noise covariance
         self.Q = np.eye(8) * 0.01

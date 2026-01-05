@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Class to perform object detection using YOLO
 class YOLODetector:
-    def __init__(self, model_name="yolo11n.pt", object_name="person", confidence_threshold=0.5):
+    def __init__(self, model_name="yolo11l.pt", object_name="person", confidence_threshold=0.5):
         self.model = YOLO(model_name)
         self.object_name = object_name
         self.confidence_threshold = confidence_threshold

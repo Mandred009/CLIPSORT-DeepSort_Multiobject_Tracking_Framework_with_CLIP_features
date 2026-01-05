@@ -111,7 +111,7 @@ class DeepSort:
             self.add_track(det, frame)
 
         # Remove dead tracks
-        self.tracks = [t for t in self.tracks if not (t.time_since_last_update > self.max_age) or not t.is_confirmed and t.time_since_last_update>self.min_hits]
+        self.tracks = [t for t in self.tracks if not (t.time_since_last_update > self.max_age)]
 
         # Return confirmed tracks
         confirmed_tracks = [t for t in self.tracks if t.is_confirmed and t.time_since_last_update == 0]

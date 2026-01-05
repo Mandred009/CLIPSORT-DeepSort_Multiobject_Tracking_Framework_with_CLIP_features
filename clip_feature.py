@@ -9,7 +9,7 @@ import clip
 
 # Class to extract features using CLIP model
 class CLIPFeatureExtractor(nn.Module):
-    def __init__(self, model_name='ViT-B/32'):
+    def __init__(self, model_name='ViT-L/14'):
         super(CLIPFeatureExtractor, self).__init__()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         

@@ -1,17 +1,17 @@
 # Configuration file for Multi Object Tracking using DeepSORT
 params:
-  detection_backbone: "yolo11l.pt" # Name of object detection model
+  detection_backbone: "yolo11x.pt" # Name of object detection model
   feature_extractor: "clip" # Name of feature extractor model
   tracking_algorithm: "deep_sort" # Tracking algorithm to use
-  tracked_entity: "person" # Type of entity to track
-  max_age: 40   # Maximum number of frames to keep 'alive' without detections
-  min_hits: 3 # Minimum number of hits to consider a track valid
+  tracked_entity: "cow" # Type of entity to track
+  max_age: 60   # Maximum number of frames to keep 'alive' without detections
+  min_hits: 4 # Minimum number of hits to consider a track valid
   detection_confidence_threshold: 0.50  # Confidence threshold for detections
-  mahalanobis_threshold: 19.4877 # Mahalanobis distance threshold
-  cosine_threshold: 0.4 # Cosine distance threshold
+  mahalanobis_threshold: 2909.4877 # Mahalanobis distance threshold
+  cosine_threshold: 0.3 # Cosine distance threshold
   iou_threshold: 0.4 # IoU distance threshold
   save_results_loc: "./results/" # Directory to save tracking results
-  visualize_traj: "false" # Whether to visualize trajectories
+  visualize_traj: "true" # Whether to visualize trajectories
 
 # Class names for detected objects for reference COCO dataset
 names:

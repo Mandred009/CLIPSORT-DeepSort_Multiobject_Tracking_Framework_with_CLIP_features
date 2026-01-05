@@ -69,7 +69,7 @@ if __name__ == "__main__":
     deepsort_tracker = DeepSort(max_age, min_hits, feature_extractor_model, mahalanobis_threshold, cosine_threshold, iou_threshold)
 
     # Video path for testing
-    video_path = "Test Videos\\People1.webm"
+    video_path = "Test Videos/cows.mp4"
 
     cap = cv2.VideoCapture(video_path)
     
