@@ -1,11 +1,12 @@
 """ Main script to run object detection and tracking on a video using YOLO and DeepSORT."""
 
+import argparse
 import os
 import random
 import time
 import yaml
 import cv2
-from yolo import YOLODetector
+from yolo import build_detector
 from deepsort import DeepSort
 from collections import deque
 from dataclasses import dataclass, field
@@ -47,7 +48,12 @@ def visualize_trajectories(frame, trajectories, active_track_ids=None):
 
 
 if __name__ == "__main__":
-    config = load_config('config.yaml')
+    parser = argparse.ArgumentParser(description="Run YOLO + DeepSORT on a video.")
+    parser.add_argument("--video", default="Test Videos/cows.mp4", help="Path to the input video.")
+    parser.add_argument("--config", default="config.yaml", help="Path to the YAML config.")
+    args = parser.parse_args()
+
+    config = load_config(args.config)
     print(config)
 
     # Config parameters
@@ -57,6 +63,7 @@ if __name__ == "__main__":
     max_age = config['params']['max_age']
     min_hits = config['params']['min_hits']
     detection_confidence_threshold = config['params']['detection_confidence_threshold']
+    detection_imgsz = config['params'].get('detection_imgsz', 640)
     mahalanobis_threshold = config['params']['mahalanobis_threshold']
     cosine_threshold = config['params']['cosine_threshold']
     iou_threshold = config['params']['iou_threshold']
@@ -65,13 +72,16 @@ if __name__ == "__main__":
 
     os.makedirs(save_results_loc, exist_ok=True)
 
-    detection_model = YOLODetector(detection_model_name, tracked_entity, detection_confidence_threshold)
+    detection_model = build_detector(
+        detection_model_name,
+        tracked_entity,
+        detection_confidence_threshold,
+        detection_imgsz,
+        test_size=config["params"].get("detection_test_size"),
+    )
     deepsort_tracker = DeepSort(max_age, min_hits, feature_extractor_model, mahalanobis_threshold, cosine_threshold, iou_threshold)
 
-    # Video path for testing
-    video_path = "Test Videos/cows.mp4"
-
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(args.video)
     
     # Get original video properties
     orig_fps = cap.get(cv2.CAP_PROP_FPS) or 30

@@ -1,15 +1,17 @@
 # Configuration file for Multi Object Tracking using DeepSORT
 params:
-  detection_backbone: "yolo11x.pt" # Name of object detection model
+  detection_backbone: "bytetrack-x" # Ultralytics .pt, or bytetrack-x / bytetrack-x-ablation / bytetrack-x-mot20
+  detection_imgsz: 1440 # Ultralytics imgsz; YOLOX uses detection_test_size instead
+  detection_test_size: [800, 1440] # ByteTrack YOLOX-X letterbox (h, w); ignored by Ultralytics
   feature_extractor: "clip" # Name of feature extractor model
   tracking_algorithm: "deep_sort" # Tracking algorithm to use
-  tracked_entity: "cow" # Type of entity to track
-  max_age: 60   # Maximum number of frames to keep 'alive' without detections
-  min_hits: 4 # Minimum number of hits to consider a track valid
-  detection_confidence_threshold: 0.50  # Confidence threshold for detections
-  mahalanobis_threshold: 2909.4877 # Mahalanobis distance threshold
+  tracked_entity: "cow" # COCO class for Ultralytics YOLO/RT-DETR (cow, car, person, ...). Ignored by YOLOX (pedestrians only).
+  max_age: 30   # Frames to keep a confirmed track without a match
+  min_hits: 3 # Hits before a track is confirmed
+  detection_confidence_threshold: 0.20  # Confidence threshold for detections
+  mahalanobis_threshold: 9.4877 # Chi-square 95% gate for 4-DoF measurements
   cosine_threshold: 0.3 # Cosine distance threshold
-  iou_threshold: 0.4 # IoU distance threshold
+  iou_threshold: 0.3 # Minimum IoU for the fallback association stage
   save_results_loc: "./results/" # Directory to save tracking results
   visualize_traj: "true" # Whether to visualize trajectories
 

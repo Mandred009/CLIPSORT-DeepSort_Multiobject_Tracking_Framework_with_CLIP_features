@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+results/
+*.pt
+*.pth
+*.pth.tar
+weights/
+yolo11x.pt
+.ultralytics/
